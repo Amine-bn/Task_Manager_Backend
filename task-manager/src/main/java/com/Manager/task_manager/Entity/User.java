@@ -4,6 +4,8 @@ import com.Manager.task_manager.Enums.userRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "users")
@@ -19,5 +21,7 @@ public class User {
     private String password;
     private String phoneNumber;
     private userRole userRole;
+    @OneToMany(mappedBy = "teamLead" , fetch = FetchType.LAZY , orphanRemoval = true )
+    private List<Project> projectListe;
 
 }

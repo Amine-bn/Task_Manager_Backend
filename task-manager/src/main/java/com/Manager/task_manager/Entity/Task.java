@@ -1,7 +1,6 @@
 package com.Manager.task_manager.Entity;
 
 import com.Manager.task_manager.Enums.taskStatus;
-import com.Manager.task_manager.Enums.userRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +15,8 @@ public class Task {
     private Long id;
     private String title;
     private String descripition;
-    private Date dateExecute;
     private taskStatus taskStatus;
-
+    private Date dateExecute;
+    private Date createdAt;
+    private Date deletedAt;
 }
