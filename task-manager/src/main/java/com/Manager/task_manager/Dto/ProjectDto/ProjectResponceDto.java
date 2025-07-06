@@ -1,12 +1,11 @@
-package com.Manager.task_manager.Dto;
+package com.Manager.task_manager.Dto.ProjectDto;
 //import jakarta.validation.constraints.NotBlank;
 import com.Manager.task_manager.Entity.User;
 import lombok.Data;
-import jakarta.validation.constraints.NotBlank;
+
 @Data
-public class ProjectDto {
+public class ProjectResponceDto {
     private Long id;
-    @NotBlank (message = "Project name must not be blank")
     private String projectName;
     private User teamLead;
 }
