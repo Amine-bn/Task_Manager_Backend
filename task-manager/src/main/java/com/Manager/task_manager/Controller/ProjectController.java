@@ -53,7 +53,6 @@ public class ProjectController {
                 return ResponseEntity.badRequest().body(
                         String.format("Invalid action '%s'. Expected 'update' or 'delete'.", update));
             }
-
         } catch (AccessDeniedException e){
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("error",e.getMessage()));
