@@ -1,7 +1,6 @@
 package com.Manager.task_manager.Controller;
-import com.Manager.task_manager.Dto.ProjectDto;
-import com.Manager.task_manager.Entity.Project;
-import com.Manager.task_manager.Entity.User;
+import com.Manager.task_manager.Dto.ProjectDto.ProjectRequestDto;
+import com.Manager.task_manager.Dto.ProjectDto.ProjectResponceDto;
 import com.Manager.task_manager.Exceptions.RessourceNotFound;
 import com.Manager.task_manager.Services.ProjectServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,12 @@ public class ProjectController {
 
     }
 
-    @PostMapping("/create/{teamLeadId}")
-    public ResponseEntity<?> createProject(@RequestBody ProjectDto projectDto , @PathVariable Long teamLeadId){
+    @PostMapping("/create")
+    public ResponseEntity<?> createProject(@RequestBody ProjectRequestDto projectDto ){
     try{
-        projectServices.createPorject(projectDto ,teamLeadId);
+        projectServices.createPorject(projectDto ,projectDto.getTeamleadId());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Map.of("success","Project Created "));
-        //return new ResponseEntity<>(, HttpStatus.CREATED);
     } catch (IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error",e.getMessage()));
@@ -38,20 +36,19 @@ public class ProjectController {
     }
     };
 
-    //correct this
-
-    @PutMapping("/{update}/{projectId}/{teamLeadId}")
-    public ResponseEntity<?> updateProject(@PathVariable String update, @PathVariable Long projectId, @PathVariable Long teamLeadId ,@RequestBody ProjectDto projectDto ){
+    //chnage the parametre
+    @PatchMapping("/{action}")
+    public ResponseEntity<?> updateProject(@PathVariable String action ,@RequestBody ProjectRequestDto projectDto ){
         try{
-            if(Objects.equals(update , "update")){
-                projectServices.updateProject(projectId , teamLeadId ,projectDto.getProjectName());
+            if(Objects.equals(action , "update")){
+                projectServices.updateProject(projectDto.getId() , projectDto.getTeamleadId(), projectDto.getProjectName());
                 return ResponseEntity.ok("Project updated with success ");
-            } else if (Objects.equals(update, "delete")) {
-                projectServices.softDelete(projectId , teamLeadId ,projectDto.getProjectName());
+            } else if (Objects.equals(action, "delete")) {
+                projectServices.softDelete(projectDto.getId() , projectDto.getTeamleadId());
                 return ResponseEntity.ok("Project deleted with success ");
             }else {
                 return ResponseEntity.badRequest().body(
-                        String.format("Invalid action '%s'. Expected 'update' or 'delete'.", update));
+                        String.format("Invalid action '%s'. Expected 'update' or 'delete'.", action));
             }
         } catch (AccessDeniedException e){
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -65,6 +62,12 @@ public class ProjectController {
         }
     }
 
+//    @GetMapping("/getAll")
+//    public  ResponseEntity<?> getAllProjects(){
+//        try{
+//
+//        }
+//    }
     //get all projects
     //softdelete project
     //
