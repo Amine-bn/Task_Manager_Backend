@@ -18,6 +18,8 @@ public class Project {
     private User teamLead;
     @OneToMany(mappedBy = "email" , fetch = FetchType.LAZY , orphanRemoval = true )
     private List<User> team;
+    @OneToMany (mappedBy = "project" , fetch = FetchType.LAZY , orphanRemoval = true)
+    private List<Task> tasks;
     private LocalDateTime createdAt;
     private LocalDateTime deletedAt;
 }

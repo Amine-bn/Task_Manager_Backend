@@ -61,17 +61,6 @@ public class ProjectController {
                     .body(Map.of("error",e.getMessage()));
         }
     }
-main
 
-//    @GetMapping("/getAll")
-//    public  ResponseEntity<?> getAllProjects(){
-//        try{
-//
-//        }
-//    }
-    //get all projects
-    //softdelete project
-    //
 
-Feature/ProjectSysteme
 }
