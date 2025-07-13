@@ -1,11 +1,12 @@
-package com.Manager.task_manager.Dto;
+package com.Manager.task_manager.Dto.UserDto;
 
 import com.Manager.task_manager.Entity.Project;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
-public class UserDto {
+public class UserResponceDto {
     private Long id;
     private String username;
     private String lastName;
