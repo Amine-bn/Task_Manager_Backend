@@ -3,8 +3,7 @@ package com.Manager.task_manager.Entity;
 import com.Manager.task_manager.Enums.taskStatus;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -15,8 +14,13 @@ public class Task {
     private Long id;
     private String title;
     private String descripition;
+    private Long teamLeadId;
+    private Long userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_Id", nullable = false)
+    private Project project;
     private taskStatus taskStatus;
-    private Date dateExecute;
-    private Date createdAt;
-    private Date deletedAt;
+    private LocalDateTime dateExecute;
+    private LocalDateTime createdAt;
+    private LocalDateTime deletedAt;
 }
