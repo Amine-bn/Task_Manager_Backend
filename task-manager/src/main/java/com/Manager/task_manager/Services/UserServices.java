@@ -11,6 +11,7 @@ public class UserServices {
     UserRepository userRepository;
 
     public String createUser( String username , String email){
+
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setUsername(username);

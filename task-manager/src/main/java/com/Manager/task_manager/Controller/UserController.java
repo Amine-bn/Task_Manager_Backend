@@ -1,6 +1,6 @@
 package com.Manager.task_manager.Controller;
 
-import com.Manager.task_manager.Dto.UserDto;
+import com.Manager.task_manager.Dto.UserDto.UserRequestDto;
 import com.Manager.task_manager.Services.ProjectServices;
 import com.Manager.task_manager.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,7 @@ public class UserController {
 
 //    public UserController()
     @PostMapping("/create")
-    public ResponseEntity <?> createUser(@RequestBody UserDto userDto){
-
+    public ResponseEntity <?> createUser(@RequestBody UserRequestDto userDto){
             String CreateUser = userServices.createUser(userDto.getUsername() , userDto.getEmail());
             return ResponseEntity.status(HttpStatus.CREATED).body("sucess");
     }

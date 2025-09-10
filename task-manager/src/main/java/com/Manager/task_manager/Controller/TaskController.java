@@ -6,6 +6,7 @@ import com.Manager.task_manager.Services.TaskServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class TaskController {
     TaskServices taskServices;
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> createTask(@RequestBody TaskRequestDto taskRequestDto){
         try{
             taskServices.CreateTask(taskRequestDto);
@@ -33,6 +35,7 @@ public class TaskController {
                     .body(Map.of("error",ex.getMessage()));
         }
     }
+
 
     @PatchMapping("/{action}")
     public ResponseEntity<?> updateTask(@PathVariable String action ,@RequestBody TaskRequestDto taskRequestDto){
