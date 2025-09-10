@@ -2,7 +2,10 @@ package com.Manager.task_manager.Entity;
 
 import com.Manager.task_manager.Enums.userRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +15,9 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
@@ -24,6 +30,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
     private userRole userRole;
     @OneToMany(mappedBy = "teamLead" , fetch = FetchType.LAZY , orphanRemoval = true )
     private List<Project> projectListe;
@@ -65,4 +72,5 @@ public class User implements UserDetails {
     public String getUsername() {
         return username;
     }
+
 }
